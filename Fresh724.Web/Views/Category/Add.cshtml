@@ -1,0 +1,61 @@
+﻿@model Fresh724.Entity.Entities.Category
+@{
+    ViewData["Title"] = "Add";
+}
+
+<form method="post" asp-action="Add" enctype="multipart/form-data">
+    <input asp-for="Id" hidden />
+ 	
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">Add Category</h2>
+                    <hr />
+                </div>
+                @*<div asp-validation-summary="All"></div>*@
+                <div class="mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Status"></label>
+                    <input asp-for="Status" class="form-control" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+               <div class="mb-3 col-6">
+                   <label asp-for="CreatedDateTime"></label>
+                   <input asp-for="CreatedDateTime" class="form-control" />
+                   <span asp-validation-for="CreatedDateTime" class="text-danger"></span>
+                   </div>
+               		
+                <div class="mb-3">
+                    <label asp-for="ImageUrl"></label>
+                    <input type="file" id="uploadBox" name="file" class="form-control"/>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="CreatedBy"></label>
+                    <input asp-for="CreatedBy" class="form-control" />
+                    <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                    </div>
+                <div class="col-12">
+	        
+                    <button type="submit" class="btn btn-primary" style="width:150px">Add</button>
+ 			
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+ 
+            </div>
+        </div>
+ 		
+    </div>
+</form>
+ 
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

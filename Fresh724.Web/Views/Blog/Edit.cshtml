@@ -1,0 +1,35 @@
+﻿@model Fresh724.Entity.Entities.Posts
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "_Layout";
+}
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="contact-form" id="form">
+        <div asp-validation-summary="All"></div>
+        <form asp-controller="Blog" method="POST" asp-action="Edit">
+            <input type="hidden" asp-for="Id"/>
+            <h4 class="text-center heading-medium">Edit Blog</h4>
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" name="Title" id="Title" class="form-control" asp-for="Title" placeholder="Title">
+                <span asp-validation-for="Title" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label for="summary">Summary</label>
+                <input type="text" name="Summary" id="Summary" class="form-control" rows="2"  asp-for="Summary"placeholder="Summary">
+                 <span asp-validation-for="Summary" class="text-danger"> </span>
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea name="Content" id="Content" class="form-control" rows="6" asp-for="Content" placeholder="Content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <input class="btn btn-block btn-primary" id="Submit" type="Submit" value="Save">
+            <input class="btn btn-block btn-primary" id="Reset" type="reset" value="Reset">
+        </form>
+    
+       </div>
+}

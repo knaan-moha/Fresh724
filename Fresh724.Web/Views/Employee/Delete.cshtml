@@ -1,0 +1,56 @@
+﻿@model Fresh724.Entity.Entities.Employee
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <input asp-for="Id" hidden />
+ 	
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">Edit Company</h2>
+                    <hr />
+                </div>
+                @*<div asp-validation-summary="All"></div>*@
+                <div class="mb-3">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                 <div class="mb-3">
+                                    <label asp-for="LastName"></label>
+                                    <input asp-for="LastName" class="form-control" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                <div class="mb-3">
+                    <label asp-for="ImageUrl"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                                   <label asp-for="CompanyName"></label>
+                                   <input asp-for="CompanyName" class="form-control" />
+                                   <span asp-validation-for="CompanyName" class="text-danger"></span>
+                               </div>
+                <div class="col-12">
+	        
+                    <button type="submit" class="btn btn-primary" style="width:150px">Delete</button>
+ 			
+                    <a asp-controller="Employee" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                        Back to List
+                    </a>
+                </div>
+ 
+            </div>
+        </div>
+ 		
+    </div>
+</form>
+ 
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

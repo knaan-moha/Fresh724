@@ -1,0 +1,71 @@
+﻿@model Fresh724.Entity.Entities.AddressUser
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using (@Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<div asp-validation-summary="All"></div>
+	<form asp-controller="AddressUser" method="POST" asp-action="Delete">
+		<input type="hidden" asp-for="Id"/>
+
+		<div class="row">
+			<div class="col-10">
+				<div class="border p-3 mt-4 row">
+					<div class="col-12 pb-2">
+						<h2 class="text-primary">Delete Address</h2>
+						<hr/>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Street1"></label>
+						<input asp-for="Street1" class="form-control"/>
+						<span asp-validation-for="Street1" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Street2"></label>
+						<input asp-for="Street2" class="form-control"/>
+						<span asp-validation-for="Street2" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="City"></label>
+						<input asp-for="City" class="form-control"/>
+						<span asp-validation-for="City" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="State"></label>
+						<input asp-for="State" class="form-control"/>
+						<span asp-validation-for="State" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="ZipCode"></label>
+						<input asp-for="ZipCode" class="form-control"/>
+						<span asp-validation-for="ZipCode" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Country"></label>
+						<input asp-for="Country" class="form-control"/>
+						<span asp-validation-for="Country" class="text-danger"></span>
+					</div>
+
+					<div class="col-12">
+
+						<button type="submit" class="btn btn-primary" style="width:150px">Delete</button>
+
+						<a asp-controller="Company" asp-action="Index" class="btn btn-secondary" style="width:150px">
+							Back to List
+						</a>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/>
+	}
+}
+}

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Fresh724.Entity.Entities.AddressUser>
+@{
+	ViewData["Title"] = "Index";
+}
+<h2>Address/Index</h2>
+@using (Html.BeginForm())
+{
+	<div class="row mb-3">
+		<div class="col">
+			<a asp-action="Add" class="btn btn-primary btn-sm"><i class="fa fa-plus me-2"></i>New Address</a>
+		</div>
+	</div>
+   <div class="container">
+            <div class="table-responsive">
+                <div class="table-wrapper">			
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-xs-4">
+        						<div class="show-entries">
+                                </div>						
+        					</div>
+        					<div class="col-xs-4">
+        						<h2 class="text-center">ApplicationUser <b>Details</b></h2>
+        					</div>
+                            <div class="col-xs-4">
+                                <div class="search-box">
+        							<div class="input-group">
+	                                    <input type="text" class="form-control" placeholder="Search&hellip;"name="SearchString" value="@ViewData["CurrentFilter"]"/>
+	                                     <input class="btn btn-primary btn-group-sm" value="Search" type="submit"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+	                        <th>UserEmail</th>
+	                        <th>CompanyName <i class="fa fa-sort"></i></th>
+	                        <th>UserId <i class="fa fa-sort"></i></th>
+                            <th>AddressId</th>
+                            <th>Street1</th>
+                            <th>Street2</th>
+	                        <th>City<i class="fa fa-sort"></i></th>
+	                        <th>State<i class="fa fa-sort"></i></th>
+                            <th>ZipCode</th>
+                            <th>Country <i class="fa fa-sort"></i></th>
+                            <th></th>
+	                        <th></th>
+	                        <th></th>
+                        </tr>
+                        </thead>
+                         @foreach (var address in Model)
+                         {
+	                         <tbody>
+	                         <tr class="table table-secondary">
+		                         <td class="User">@address.User.Email</td>
+		                         <td class="User">@address.User.CompanyId</td>
+		                          <td class="User">@address.User.Id</td>
+		                         <td class="User">@address.Id</td>
+		                         <td class="Street1">@address.Street1</td>
+		                         <td class="Street2">@address.Street2</td>
+		                         <td class="City">@address.City</td>
+		                         <td class="State">@address.State</td>
+		                         <td class="ZipKode">@address.ZipCode</td>
+		                         <td class="Country">@address.Country</td>
+		                         <td><a asp-action="Edit" asp-route-id="@address.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
+		                         <td><a asp-action="Delete" asp-route-id="@address.Id" class="delete" onclick="return confirm('Are you sure want to delete this user : @address.User.Email ?')" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+		                         </td>
+	                         </tr>
+	                         </tbody>
+	                         
+                         }
+                        
+                    </table>   
+                    
+                </div>  
+            </div>  
+          </div>  
+}
+
+

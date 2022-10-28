@@ -1,0 +1,51 @@
+﻿@using Microsoft.EntityFrameworkCore.Query
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Fresh724.Entity.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<Fresh724.Entity.Entities.Posts>
+@{
+    ViewBag.Title = "Index";;
+}
+
+<h2>My Blog</h2>
+@using (Html.BeginForm())
+{
+   
+    <table class="table table-dark" cellpadding="10">
+        <thead>
+        <tr>
+            <th scope="col">UserName</th>
+            <th scope="col">Title</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Content</th>
+            <th scope="col">Time</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var posts in Model)
+        {
+            <tbody >
+            <tr class="table table-secondary">
+                <td class="Nickname">@posts.User.UserName</td>
+                <td class="Title">@posts.Title</td>
+                <td class="Summary ">@posts.Summary</td>
+                <td class="Content">@Html.Raw(@posts.Content)</td>
+                <td class="Time">@posts.Timestamp.Date.ToString("dd.MM.yyyy")</td>
+                <td><a asp-action="Add" asp-route-id="@posts.UserId"  data-toggle="tooltip"><i class="material-icons">&#xE147;</i></a></td>
+                <td><a asp-action="Edit" asp-route-id="@posts.UserId" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>  
+                <td><a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+            
+                </td>
+              
+
+            </tr>
+            </tbody>
+
+        }
+
+    </table>
+}
