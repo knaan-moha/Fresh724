@@ -14,7 +14,7 @@ public class ApplicationDbInitializer
     {
         // Delete the database before we initialize it. This is common to do during development.
         // Delete the database before we initialize it. This is common to do during development.
-       // db.Database.EnsureDeleted();
+        //db.Database.EnsureDeleted();
         // Recreate the database and tables according to our models
         db.Database.EnsureCreated();
         // Add test data to simplify debugging and testing

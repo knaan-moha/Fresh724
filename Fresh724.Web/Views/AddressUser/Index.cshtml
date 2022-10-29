@@ -20,7 +20,7 @@
                                 </div>						
         					</div>
         					<div class="col-xs-4">
-        						<h2 class="text-center">ApplicationUser <b>Details</b></h2>
+        						<h2 class="text-center">Address <b>Details</b></h2>
         					</div>
                             <div class="col-xs-4">
                                 <div class="search-box">
@@ -35,17 +35,15 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-	                        <th>UserEmail</th>
-	                        <th>CompanyName <i class="fa fa-sort"></i></th>
-	                        <th>UserId <i class="fa fa-sort"></i></th>
-                            <th>AddressId</th>
-                            <th>Street1</th>
-                            <th>Street2</th>
+	                        <th>UserId</th>
+	                        <th>AddressId</th>
+	                        <th>Street1</th>
+	                        <th>Street2</th>
 	                        <th>City<i class="fa fa-sort"></i></th>
 	                        <th>State<i class="fa fa-sort"></i></th>
-                            <th>ZipCode</th>
-                            <th>Country <i class="fa fa-sort"></i></th>
-                            <th></th>
+	                        <th>ZipCode</th>
+	                        <th>Country <i class="fa fa-sort"></i></th>
+	                        <th></th>
 	                        <th></th>
 	                        <th></th>
                         </tr>
@@ -54,9 +52,7 @@
                          {
 	                         <tbody>
 	                         <tr class="table table-secondary">
-		                         <td class="User">@address.User.Email</td>
-		                         <td class="User">@address.User.CompanyId</td>
-		                          <td class="User">@address.User.Id</td>
+		                          <td class="User">@address.UserId</td>
 		                         <td class="User">@address.Id</td>
 		                         <td class="Street1">@address.Street1</td>
 		                         <td class="Street2">@address.Street2</td>
@@ -65,7 +61,7 @@
 		                         <td class="ZipKode">@address.ZipCode</td>
 		                         <td class="Country">@address.Country</td>
 		                         <td><a asp-action="Edit" asp-route-id="@address.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
-		                         <td><a asp-action="Delete" asp-route-id="@address.Id" class="delete" onclick="return confirm('Are you sure want to delete this user : @address.User.Email ?')" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+		                         <td><a asp-action="Delete" asp-route-id="@address.Id" class="delete" onclick="return confirm('Are you sure want to delete this record :@address.UserId ?')" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 		                         </td>
 	                         </tr>
 	                         </tbody>

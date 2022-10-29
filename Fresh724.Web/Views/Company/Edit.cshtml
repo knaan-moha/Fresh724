@@ -1,17 +1,16 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Fresh724.Entity.Entities.Company
+﻿@model Fresh724.Entity.Entities.Company
 @{
     ViewData["Title"] = "Edit";
 }
 
-<<form method="post" asp-action="Edit" enctype="multipart/form-data">
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
  	
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">Edit Company</h2>
+                    <h2 class="text-primary">Add Company</h2>
                     <hr />
                 </div>
                 @*<div asp-validation-summary="All"></div>*@
@@ -26,10 +25,19 @@
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                                   <label asp-for="CreatedBy"></label>
-                                   <input asp-for="CreatedBy" class="form-control" />
-                                   <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                               </div>
+                    <label asp-for="ModifiedBy"></label>
+                    <input asp-for="ModifiedBy" class="form-control" />
+                    <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ModifiedDateTime"></label>
+                    <input asp-for="ModifiedDateTime" class="form-control" />
+                    <span asp-validation-for="ModifiedDateTime" class="text-danger"></span>
+                </div>
+                 <div class="mb-3">
+                     <label asp-for="IconUrl"></label>
+                     <input type="file" id="uploadBox" name="file" class="form-control"/>
+                     </div>
                 <div class="col-12">
 	        
                     <button type="submit" class="btn btn-primary" style="width:150px">Save</button>

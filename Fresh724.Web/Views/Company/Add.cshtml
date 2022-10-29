@@ -29,6 +29,15 @@
                     <input asp-for="CreatedBy" class="form-control" />
                     <span asp-validation-for="CreatedBy" class="text-danger"></span>
                 </div>
+                <div class="mb-3">
+                    <label asp-for="CreatedDateTime"></label>
+                    <input asp-for="CreatedDateTime" class="form-control" />
+                    <span asp-validation-for="CreatedDateTime" class="text-danger"></span>
+                </div>
+                 <div class="mb-3">
+                     <label asp-for="IconUrl"></label>
+                     <input type="file" id="uploadBox" name="file" class="form-control"/>
+                     </div>
                 <div class="col-12">
 	        
                     <button type="submit" class="btn btn-primary" style="width:150px">Add</button>

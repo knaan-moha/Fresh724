@@ -1,9 +1,9 @@
 ﻿@model Fresh724.Entity.Entities.ProductViewEntity
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "AddOrEdit";
 }
 
-<form method="post" asp-action="Add" enctype="multipart/form-data">
+<form method="post" asp-action="AddOrEdit" enctype="multipart/form-data">
 	  <input asp-for="Product.Id" hidden />
       <input asp-for="Product.ImageUrl" hidden />
 	<div class="row">

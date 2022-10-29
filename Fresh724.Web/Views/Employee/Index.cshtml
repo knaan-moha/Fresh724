@@ -1,36 +1,85 @@
-﻿@model IEnumerable<Fresh724.Entity.Entities.Employee>
-
-
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@using static Fresh724.Entity.Entities.Product
+@model IPagedList<Fresh724.Entity.Entities.Employee>
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Employee List</h2>
-		</div>
-        <div class="col-6 text-end">
-            <a asp-controller="Employee" asp-action="Add" class="btn btn-primary">
-               <i class="bi bi-plus-circle"></i> &nbsp; Create New Product
-			</a>
-		</div>
-	</div>
-    <br /><br />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-<table  id="tblData"  class="table table-bordered table-striped" style="width:100%">
-    <thead>
-    			<tr>
-    				<th>FirstName</th>
-    				<th>LastName</th>
-    				<th>Image</th>
-    				<th>CompanyName</th>
-    				<th></th>
-    			</tr>
-    			</thead>
-</table>
-</div>
+@{
+    ViewBag.Title = "Products";
+}
 
-@section Scripts{
-    <script src="~/js/employee.js"></script>
+@using (Html.BeginForm())
+{
+    <div class="row mb-3">
+        <div class="col">
+            <a asp-action="Add" class="btn btn-primary btn-sm"><i class="fa fa-plus me-2"></i>New Employee</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="show-entries">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <h2 class="text-center">Employee <b>Details</b></h2>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="search-box">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search&hellip;"name="SearchString" value="@ViewData["CurrentFilter"]"/>
+                                    <input class="btn btn-primary btn-group-sm" value="Search" type="submit"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered table-dark table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>@Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>LastName</th>
+                        <th>@Html.ActionLink("CompanyName", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>@Html.ActionLink("CreatedDateTime", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>ImageUrl</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var employee in Model)
+                    {
+                        <tbody >
+                        <tr class="table table-secondary">
+                            <td>@Html.DisplayFor(modelItem => employee.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.CompanyName)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.CreatedDateTime)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.ImageUrl)</td>
+                            <td>@Html.DisplayFor(modelItem => employee.Status)</td>
+                            <td><a asp-action="Edit" asp-route-id="@employee.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
+                            <td><a asp-action="Delete" asp-route-id="@employee.Id" onclick="return confirm('Are you sure want to delete this user : @employee.FirstName ?')" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </tr>
+                        </tbody>
+                    }
+                </table>
+                <br/>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+    </div>
 }

@@ -12,6 +12,10 @@ public class Company:EntityBase
     [DisplayName("CompanyName")]
     public string Name { get; set; } = string.Empty;
     
+   // [Required (ErrorMessage = "Icon is Required")]
+    [Display(Name = "Icon")]
+    public string IconUrl { get; set; }= string.Empty;
+    
 }
 
 

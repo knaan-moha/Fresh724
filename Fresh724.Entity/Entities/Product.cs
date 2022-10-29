@@ -29,18 +29,20 @@ public class Product:EntityBase
     [Display(Name = "Image")]
     public string ImageUrl { get; set; }= string.Empty;
     
-    [Required (ErrorMessage = "Category is Required")]
+    
+    
+    
+    //[Required (ErrorMessage = "Category is Required")]
     public Guid CategoryId { get; set; }
     
-    public Category? Category { get; set; }
-    
-    
-    
+    public Category Category { get; set; }
+    public string CategoryName { get; set; } = string.Empty;
+
     public Guid CompanyId { get; set; }
     
     public Company? Company { get; set; }
     
-     
+    
     [NotMapped]
     public string? TitleWithIcon
     {

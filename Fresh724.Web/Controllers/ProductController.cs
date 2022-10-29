@@ -10,7 +10,8 @@ using Fresh724.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PagedList;
+using X.PagedList;
+using X.PagedList.Mvc.Core;
 
 namespace Fresh724.Web.Controllers;
 
@@ -38,6 +39,8 @@ public class ProductController : Controller
     {
         ViewBag.CurrentSort = sortOrder;
         ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+        ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+        ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "comp_desc" : "";
         ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
         if (searchString != null)
@@ -56,12 +59,18 @@ public class ProductController : Controller
         if (!string.IsNullOrEmpty(searchString))
         {
             products = products.Where(s => s.Title.Contains(searchString)
-                                           || s.ImageUrl.Contains(searchString));
+                                           || s.Description.Contains(searchString));
         }
 
         switch (sortOrder)
         {
             case "title_desc":
+                products = products.OrderByDescending(s => s.Title);
+                break;
+            case "price_desc":
+                products = products.OrderByDescending(s => s.Title);
+                break;
+            case "comp_desc":
                 products = products.OrderByDescending(s => s.Title);
                 break;
             case "Date":
@@ -84,7 +93,7 @@ public class ProductController : Controller
 
 
     //GET
-    public IActionResult Add()
+       public IActionResult AddOrEdit(Guid? id)
     {
         var user = _um.GetUserAsync(User).Result;
         ProductViewEntity product = new()
@@ -99,25 +108,36 @@ public class ProductController : Controller
         product.Product.CompanyId = user.CompanyId;
         product.Product.CreatedBy = user.CompanyName;
         product.Product.CreatedDateTime = DateTime.Now;
-        product.Product.Status = "Active";
-        return View(product);
+        if (id == null || id == Guid.Empty)
+        {
+            
+            return View(product);
+        }
+        else
+        {
+            product.Product.ModifiedBy = user.CompanyName;
+            product.Product.ModifiedDateTime = DateTime.Now;
+            product.Product = _unitOfWork.Products.GetFirstOrDefault(u => u.Id == id);
+            return View(product);
+            
+        }
+
 
     }
 
-
-    //[Bind("Id, Name, Status, CreateDateTime,ImageUrl, User, UserId") ]
+   // [Bind("Product.Title, Product.CreatedDateTime,Product.CreatedBy,Product.ImageUrl,Product.Company.CompanyName, Product.Description,Product.PurchasePrice,Product.Status, Product.Category.CategoryName, Product.Category, Product.CategoryId, Product.Company, Product.CompanyId,  User, UserId") ]
+    //POST
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Add(
-        ProductViewEntity product, IFormFile? file)
+    public IActionResult AddOrEdit(Guid id,ProductViewEntity item, IFormFile? file)
     {
-        product.Product.CreatedDateTime = DateTime.Now;
-        var user = _um.GetUserAsync(User).Result;
-        product.Product.CreatedBy = user.UserName;
-        product.Product.CreatedDateTime = DateTime.Now;
-        
+        var user =  _um.GetUserAsync(User).Result;
+        item.Product.CompanyId = user.CompanyId;
+        item.Product.CategoryName = _unitOfWork.Categories.GetFirstOrDefault(u => u.Id == item.Product.CategoryId).Name;
+        ModelState.Clear();
 
-        if (ModelState.IsValid)
+        // Reevaluate the model with the added fields
+        if (TryValidateModel(file))
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             if (file != null)
@@ -126,9 +146,9 @@ public class ProductController : Controller
                 var uploads = Path.Combine(wwwRootPath, @"images\product");
                 var extension = Path.GetExtension(file.FileName);
 
-                if ( product.Product.ImageUrl != null)
+                if (item.Product.ImageUrl != null)
                 {
-                    var oldImagePath = Path.Combine(wwwRootPath,  product.Product.ImageUrl.TrimStart('\\'));
+                    var oldImagePath = Path.Combine(wwwRootPath, item.Product.ImageUrl.TrimStart('\\'));
                     if (System.IO.File.Exists(oldImagePath))
                     {
                         System.IO.File.Delete(oldImagePath);
@@ -139,129 +159,69 @@ public class ProductController : Controller
                 {
                     file.CopyTo(fileStreams);
                 }
-
-                product.Product.ImageUrl = @"\images\product\" + fileName + extension;
-
-            }
-
-            _unitOfWork.Products.Add(product.Product);
-            _unitOfWork.SaveChanges();
-            TempData["success"] = "Category Added successfully";
-            return RedirectToAction("Index");
-        }
-
-        return View(product);
-    }
-
-
-
-    [Authorize]
-    [HttpGet]
-    public IActionResult Edit(Guid? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var user = _um.GetUserAsync(User).Result;
-        ProductViewEntity product = new()
-        {
-            Product = new(),
-            CategoryList = _unitOfWork.Categories.GetAll().Select(i => new SelectListItem
-            {
-                Text = i.Name,
-                Value = i.Id.ToString()
-            }),
-        };
-        product.Product.CompanyId = user.CompanyId;
-        product.Product.ModifiedBy = user.CompanyName;
-        product.Product.ModifiedDateTime = DateTime.Now;
-        return View(product);
-    }
-
-
-
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(
-        ProductViewEntity product, IFormFile? file)
-    {
-        product.Product.CreatedDateTime = DateTime.Now;
-        var user = _um.GetUserAsync(User).Result;
-        product.Product.ModifiedBy = user.CompanyName;
-        product.Product.ModifiedDateTime = DateTime.Now;
-        
-
-        if (ModelState.IsValid)
-        {
-            string wwwRootPath = _hostEnvironment.WebRootPath;
-            if (file != null)
-            {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images\product");
-                var extension = Path.GetExtension(file.FileName);
-
-                if ( product.Product.ImageUrl != null)
-                {
-                    var oldImagePath = Path.Combine(wwwRootPath,  product.Product.ImageUrl.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
-                    {
-                        System.IO.File.Delete(oldImagePath);
-                    }
-                }
-
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                {
-                    file.CopyTo(fileStreams);
-                }
-
-                product.Product.ImageUrl = @"\images\product\" + fileName + extension;
+                item.Product.ImageUrl = @"\images\product\" + fileName + extension;
 
             }
-
-            _unitOfWork.Products.Update(product.Product);
+            if (item.Product.Id == Guid.Empty)
+            {
+                item.Product.CreatedBy = user.CompanyName;
+                item.Product.CreatedDateTime = DateTime.Now;
+                _unitOfWork.Products.Add(item.Product);
+            }
+            else
+            {
+                item.Product.ModifiedBy = user.CompanyName;
+                item.Product.ModifiedDateTime = DateTime.Now;
+                _unitOfWork.Products.Update(item.Product);
+            }
             _unitOfWork.SaveChanges();
-            TempData["success"] = "Category Added successfully";
+            TempData["success"] = "Product created successfully";
             return RedirectToAction("Index");
         }
-
-        return View(product);
+        return View(item);
     }
-
-    [Authorize]
-    [HttpGet]
-    public IActionResult Delete(Guid? Id)
+    
+   /* [HttpGet]
+    public IActionResult GetAll()
     {
-        if (Id == null)
-        {
-            return NotFound();
-        }
+        var productList = _unitOfWork.Products.GetAll(includeProperties: "Category");
+        return Json(new { data = productList });
+    }*/
+   
+    
+    [HttpGet]
+    public IActionResult Delete(Guid? id)
+    {
+        var product = _unitOfWork.Products.GetFirstOrDefault(u=>u.Id==id);
+        //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
-        var user = _um.GetUserAsync(User).Result;
-        var product = _unitOfWork.Products.GetFirstOrDefault(u => u.Id == Id);
-        if (product == null) //|| category.UserId !=user.Id )
+        if (product == null)
         {
             return NotFound();
         }
 
         return View(product);
     }
+    
 
 // POST: Movies/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public IActionResult Delete(Guid id)
+    public IActionResult Delete(Guid id, Product product)
     {
+        product.CreatedDateTime = DateTime.Now;
         var user = _um.GetUserAsync(User).Result;
-        
-        var product1 = _unitOfWork.Products.GetFirstOrDefault(u => u.Id == id);
-        _unitOfWork.Products.Remove(product1);
-        _unitOfWork.SaveChanges();
-        TempData["success"] = "Category deleted successfully";
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid)
+        {
+            _unitOfWork.Products.Remove(product);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        return View(product);
     }
+
+   
 
 }
 /*
@@ -522,4 +482,198 @@ public IActionResult Delete(Guid id, [Bind("Id, Title, CreateDateTime,ImageUrl, 
    _unitOfWork.SaveChanges();
    TempData["success"] = "Category deleted successfully";
    return RedirectToAction("Index");
-}*/
+}
+
+
+
+
+
+
+
+
+ public IActionResult Add()
+    {
+        var user = _um.GetUserAsync(User).Result;
+        ProductViewEntity product = new()
+        {
+            CategoryList = _unitOfWork.Categories.GetAll().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            }),
+        };
+        
+        Product product1 = new Product();
+        product1.CompanyId = user.CompanyId;
+        product1.CreatedBy = user.CompanyName;
+        product1.CreatedDateTime = DateTime.Now;
+        product1.Status = "Active";
+        return View(product);
+
+    }
+
+
+    //[Bind("Id, Name, Status, CreateDateTime,ImageUrl, User, UserId") ]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Add(
+        Product product, IFormFile? file)
+    {
+        product.CreatedDateTime = DateTime.Now;
+        var user = _um.GetUserAsync(User).Result;
+        product.CreatedBy = user.UserName;
+        ModelState.Clear();
+
+        // Reevaluate the model with the added fields
+        if (TryValidateModel(product))
+        {
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images\product");
+                var extension = Path.GetExtension(file.FileName);
+
+                if ( product.ImageUrl != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath,  product.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStreams);
+                }
+
+                product.ImageUrl = @"\images\product\" + fileName + extension;
+
+            }
+
+            _unitOfWork.Products.Add(product);
+            _unitOfWork.SaveChanges();
+            TempData["success"] = "Category Added successfully";
+            return RedirectToAction("Index");
+        }
+
+        return View(product);
+    }
+
+
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult Edit(Guid? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var user = _um.GetUserAsync(User).Result;
+        ProductViewEntity product = new()
+        {
+            Product = new(),
+            CategoryList = _unitOfWork.Categories.GetAll().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            }),
+        };
+        product.Product.CompanyId = user.CompanyId;
+        product.Product.ModifiedBy = user.CompanyName;
+        product.Product.ModifiedDateTime = DateTime.Now;
+        return View(product);
+    }
+
+
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(
+        ProductViewEntity product, IFormFile? file)
+    {
+        product.Product.CreatedDateTime = DateTime.Now;
+        var user = _um.GetUserAsync(User).Result;
+        product.Product.ModifiedBy = user.CompanyName;
+        product.Product.ModifiedDateTime = DateTime.Now;
+        ModelState.Clear();
+
+        // Reevaluate the model with the added fields
+        if (TryValidateModel(product))
+        {
+        
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images\product");
+                var extension = Path.GetExtension(file.FileName);
+
+                if ( product.Product.ImageUrl != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath,  product.Product.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStreams);
+                }
+
+                product.Product.ImageUrl = @"\images\product\" + fileName + extension;
+
+            }
+
+            _unitOfWork.Products.Update(product.Product);
+            _unitOfWork.SaveChanges();
+            TempData["success"] = "Category Added successfully";
+            return RedirectToAction("Index");
+        }
+
+        return View(product);
+    }
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult Delete(Guid? Id)
+    {
+        if (Id == null)
+        {
+            return NotFound();
+        }
+
+        var user = _um.GetUserAsync(User).Result;
+        var product = _unitOfWork.Products.GetFirstOrDefault(u => u.Id == Id);
+        if (product == null) //|| category.UserId !=user.Id )
+        {
+            return NotFound();
+        }
+
+        return View(product);
+    }
+
+// POST: Movies/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(Guid id)
+    {
+        var user = _um.GetUserAsync(User).Result;
+        
+        var product1 = _unitOfWork.Products.GetFirstOrDefault(u => u.Id == id);
+        _unitOfWork.Products.Remove(product1);
+        _unitOfWork.SaveChanges();
+        TempData["success"] = "Category deleted successfully";
+        return RedirectToAction("Index");
+    }
+    
+    
+    
+    
+    */

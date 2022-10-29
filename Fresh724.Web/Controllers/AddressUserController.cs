@@ -24,23 +24,10 @@ public class AddressUserController : Controller
     }
 
     [AllowAnonymous]
-    /*public IActionResult Index(Guid? Id)
-    {
-        var user = _um.GetUserAsync(User).Result;
-        IEnumerable<AddressUser> address = _unitOfWork.AddressUsers.GetAll();
-        return View(address);
-    }*/
-    //public IActionResult Index(Guid? Id)
-    /*public  IActionResult Index()
-    {
-        var user = _um.GetUserAsync(User).Result;
-        IEnumerable<AddressUser> address = _unitOfWork.AddressUsers.GetAll();
-        return View(address);
-    }*/
-    
+  
    
         
-        public async Task<IActionResult> Index(string SearchString)
+     /*   public async Task<IActionResult> Index(string SearchString)
         {
             ViewData["CurrentFilter"] = SearchString;
             var address2 = from m in _unitOfWork.AddressUsers.GetAll()
@@ -60,7 +47,71 @@ public class AddressUserController : Controller
             //IEnumerable<AddressUser> address = _unitOfWork.AddressUsers.GetByFilter( x => x.UserId == user.Id);
             //return View(address);
             
-        }
+        }*/
+     
+     
+     public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+     {
+         ViewBag.CurrentSort = sortOrder;
+         ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "street1_desc" : "";
+         ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "city_desc" : "";
+         ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "state_desc" : "";
+         ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "zipCode_desc" : "";
+         ViewBag.DateSortParm = sortOrder == "ZipCode" ? "zipCode_desc" : "ZipCode";
+
+         if (searchString != null)
+         {
+             page = 1;
+         }
+         else
+         {
+             searchString = currentFilter;
+         }
+
+         ViewBag.CurrentFilter = searchString;
+
+         var address = from s in _unitOfWork.AddressUsers.GetAll()
+             select s;
+         if (!string.IsNullOrEmpty(searchString))
+         {
+             address = address.Where(s => s.Street1.Contains(searchString)
+                                            || s.City.Contains(searchString)
+                                            || s.State.Contains(searchString)
+                                            || s.ZipCode.Contains(searchString));
+         }
+
+         switch (sortOrder)
+         {
+             case "street1_desc":
+                 address = address.OrderByDescending(s => s.Street1);
+                 break;
+             case "Zipcode_desc":
+                 address = address.OrderByDescending(s => s.ZipCode);
+                 break;
+             case "city_desc":
+                 address = address.OrderByDescending(s => s.City);
+                 break;
+             
+             case "state_desc":
+                 address = address.OrderByDescending(s => s.State);
+                 break;
+             case "ZipCode":
+                 address = address.OrderBy(s => s.ZipCode);
+                 break;
+             case "zipCode_desc":
+                 address = address.OrderByDescending(s => s.ZipCode);
+                 break;
+             default: // Name ascending 
+                 address = address.OrderBy(s => s.Street1);
+                 break;
+
+         }
+
+         int pageSize = 2;
+         int pageNumber = (page ?? 1);
+         return View(address.ToPagedList(pageNumber, pageSize));
+     }
+
 
    
 
