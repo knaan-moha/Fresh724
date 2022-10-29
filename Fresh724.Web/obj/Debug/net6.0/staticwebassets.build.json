@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "op6cA3nNCn/b0bbNtoxQnfcD68eqqxhHDV0YCS3didQ=",
+  "Hash": "qAm9eKRHMoj+T6kwGq9M5jYHdPp9d8uCjsyuqb0Q9NE=",
   "Source": "Fresh724.Web",
   "BasePath": "_content/Fresh724.Web",
   "Mode": "Default",
@@ -1139,12 +1139,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\category\\175b97f4-f928-48a6-bef6-86b4e1f81a1d.jpeg",
+      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\category\\fe93a139-478a-4003-8968-263a2472155c.jpeg",
       "SourceId": "Fresh724.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
       "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/category/175b97f4-f928-48a6-bef6-86b4e1f81a1d.jpeg",
+      "RelativePath": "images/category/fe93a139-478a-4003-8968-263a2472155c.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1153,15 +1153,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\category\\175b97f4-f928-48a6-bef6-86b4e1f81a1d.jpeg"
+      "OriginalItemSpec": "wwwroot\\images\\category\\fe93a139-478a-4003-8968-263a2472155c.jpeg"
     },
     {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\category\\7b110c23-124e-4993-9c26-088811993676.jpeg",
+      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\company\\1a35bcf3-7ffe-44c4-b653-3b809ac2731b.jpg",
       "SourceId": "Fresh724.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
       "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/category/7b110c23-124e-4993-9c26-088811993676.jpeg",
+      "RelativePath": "images/company/1a35bcf3-7ffe-44c4-b653-3b809ac2731b.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1170,15 +1170,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\category\\7b110c23-124e-4993-9c26-088811993676.jpeg"
+      "OriginalItemSpec": "wwwroot\\images\\company\\1a35bcf3-7ffe-44c4-b653-3b809ac2731b.jpg"
     },
     {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\company\\b250aedf-ed6a-4113-87cf-44724f6be8de.jpg",
+      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\product\\70edc9bc-1567-4070-8bcf-2dc38ed3eb30.jpg",
       "SourceId": "Fresh724.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
       "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/company/b250aedf-ed6a-4113-87cf-44724f6be8de.jpg",
+      "RelativePath": "images/product/70edc9bc-1567-4070-8bcf-2dc38ed3eb30.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1187,15 +1187,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\company\\b250aedf-ed6a-4113-87cf-44724f6be8de.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\product\\70edc9bc-1567-4070-8bcf-2dc38ed3eb30.jpg"
     },
     {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\employees\\calculator.png",
+      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\product\\792b84be-c72e-401c-a810-7ae12b3a02c2.jpeg",
       "SourceId": "Fresh724.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
       "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/employees/calculator.png",
+      "RelativePath": "images/product/792b84be-c72e-401c-a810-7ae12b3a02c2.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1204,41 +1204,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\employees\\calculator.png"
-    },
-    {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\product\\7f367b2d-0267-4ea3-8c70-d382f37987e1.jpeg",
-      "SourceId": "Fresh724.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
-      "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/product/7f367b2d-0267-4ea3-8c70-d382f37987e1.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\7f367b2d-0267-4ea3-8c70-d382f37987e1.jpeg"
-    },
-    {
-      "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\images\\product\\80acc541-5187-484a-8d88-42fbce1ca1d0.jpeg",
-      "SourceId": "Fresh724.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\",
-      "BasePath": "_content/Fresh724.Web",
-      "RelativePath": "images/product/80acc541-5187-484a-8d88-42fbce1ca1d0.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\80acc541-5187-484a-8d88-42fbce1ca1d0.jpeg"
+      "OriginalItemSpec": "wwwroot\\images\\product\\792b84be-c72e-401c-a810-7ae12b3a02c2.jpeg"
     },
     {
       "Identity": "C:\\Users\\yunus\\Desktop\\InternettProsject\\Fresh724\\Fresh724.Web\\wwwroot\\js\\employee.js",

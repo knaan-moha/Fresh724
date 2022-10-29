@@ -16,11 +16,11 @@
 
 @using (Html.BeginForm())
 {
-	<div class="row mb-3">
-		<div class="col">
-			<a asp-action="Add" class="btn btn-primary btn-sm"><i class="fa fa-plus me-2"></i>New Category</a>
-		</div>
-	</div>
+    <div class="row mb-3">
+        <div class="col-xs-6">
+            <a asp-action="Add" class="btn btn-primary" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Category</span></a>
+        </div>
+    </div>
    <div class="container">
             <div class="table-responsive">
                 <div class="table-wrapper">			
@@ -51,6 +51,7 @@
         <th>Status</th>
         <th>ImageUrl</th>
         <th>@Html.ActionLink("CreatedDateTime", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>Details</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -63,6 +64,7 @@
         <td>@Html.DisplayFor(modelItem => category.Status)</td>
         <td>@Html.DisplayFor(modelItem => category.ImageUrl)</td>
         <td>@Html.DisplayFor(modelItem => category.CreatedDateTime)</td>
+        <td><a asp-action="Details" asp-route-id="@category.Id" class="view" title="Details" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a></td>
         <td><a asp-action="Edit" asp-route-id="@category.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
         <td><a asp-action="Delete" asp-route-id="@category.Id" onclick="return confirm('Are you sure want to delete this user : @category.Name ?')" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
     </tr>

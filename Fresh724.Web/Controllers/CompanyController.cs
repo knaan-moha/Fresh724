@@ -252,6 +252,25 @@ public class CompanyController : Controller
 
                 return View(company);
             }
+            
+            //Get Details   
+            public IActionResult Details(Guid? id)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                var company = _unitOfWork.Companies.GetFirstOrDefault(u=>u.Id==id);
+                //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+                if (company == null)
+                {
+                    return NotFound();
+                }
+
+                return View(company);
+            }
+            
     
     
 }

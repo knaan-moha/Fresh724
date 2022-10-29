@@ -28,22 +28,8 @@ public class ApplicationDbInitializer
 
             //if roles are not created, then we will create admin user as well
             
-            var company1= new Company
-            {
-                Name = "YUNUS",
-                Status = "Active",
-                CreatedDateTime = DateTime.Now,
-                CreatedBy = "System",
-            };
-            
-            
             var admin = new ApplicationUser
-                { UserName = "Yunusy@uia.no", Email = "Yunusy@uia.no", EmailConfirmed = true };
-
-            var company = new ApplicationUser
-                { UserName = "georgetell22@gmail.com", Email = "georgetell22@gmail.com", CompanyName = "YUNUS",EmailConfirmed = true };
-            um.CreateAsync(company, "1215Yns.").Wait();
-            um.AddToRoleAsync(company, "Company").Wait();
+                { UserName = "Admin@fresh.no", Email = "Admin@fresh.no", EmailConfirmed = true };
             
             var user = new ApplicationUser { UserName = "user@uia.no", Email = "user@uia.no", EmailConfirmed = true };
             um.CreateAsync(admin, "Password1.").Wait();

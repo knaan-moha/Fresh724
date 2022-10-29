@@ -17,8 +17,8 @@
 @using (Html.BeginForm())
 {
     <div class="row mb-3">
-        <div class="col">
-            <a asp-action="Add" class="btn btn-primary btn-sm"><i class="fa fa-plus me-2"></i>New Employee</a>
+        <div class="col-xs-6">
+            <a asp-action="Add" class="btn btn-primary" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
         </div>
     </div>
     <div class="container">
@@ -53,8 +53,9 @@
                         <th>@Html.ActionLink("CreatedDateTime", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                         <th>ImageUrl</th>
                         <th>Status</th>
-                        <th></th>
-                        <th></th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
 
                     @foreach (var employee in Model)
@@ -68,6 +69,7 @@
                             <td>@Html.DisplayFor(modelItem => employee.CreatedDateTime)</td>
                             <td>@Html.DisplayFor(modelItem => employee.ImageUrl)</td>
                             <td>@Html.DisplayFor(modelItem => employee.Status)</td>
+                            <td><a asp-action="Details" asp-route-id="@employee.Id" class="view" title="Details" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a></td>
                             <td><a asp-action="Edit" asp-route-id="@employee.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
                             <td><a asp-action="Delete" asp-route-id="@employee.Id" onclick="return confirm('Are you sure want to delete this user : @employee.FirstName ?')" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </tr>

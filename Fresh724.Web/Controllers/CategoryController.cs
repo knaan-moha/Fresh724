@@ -239,6 +239,25 @@ public class CategoryController : Controller
        TempData["success"] = "Category deleted successfully";
        return RedirectToAction("Index");
    }
-  
+   
+   
+   //get details
+    [Authorize]
+    [HttpGet]
+    public IActionResult Details(Guid? Id)
+    {
+        if (Id == null)
+        {
+            return NotFound();
+        }
+        var user = _um.GetUserAsync(User).Result;
+        var category = _unitOfWork.Categories.GetFirstOrDefault(u=>u.Id==Id);
+        if (category == null ) 
+        {
+            return NotFound();
+        }
+
+        return View(category);
+    }
 
 }
