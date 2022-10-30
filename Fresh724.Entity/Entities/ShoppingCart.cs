@@ -12,10 +12,10 @@ public class ShoppingCart
     public Product Product { get; set; }
     public int Count { get; set; }
 
-    public string ApplicationUserId { get; set; }
+    public string UserId { get; set; }
     [ForeignKey("ApplicationUserId")]
 
-    public ApplicationUser ApplicationUser { get; set; }
+    public ApplicationUser User { get; set; }
 
     [NotMapped]
     public double Price { get; set; }

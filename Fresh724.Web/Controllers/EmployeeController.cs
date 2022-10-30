@@ -120,7 +120,7 @@ namespace Fresh724.Web.Controllers;
             if (file != null)
             {
                 string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images\product");
+                var uploads = Path.Combine(wwwRootPath, @"images\employee");
                 var extension = Path.GetExtension(file.FileName);
 
                 if (employee.ImageUrl != null)
@@ -136,7 +136,7 @@ namespace Fresh724.Web.Controllers;
                 {
                     file.CopyTo(fileStreams);
                 }
-                employee.ImageUrl = @"\images\product\" + fileName + extension;
+                employee.ImageUrl = @"\images\employee\" + fileName + extension;
 
             }
             _unitOfWork.Employees.Add(employee);
@@ -190,7 +190,7 @@ namespace Fresh724.Web.Controllers;
            if (file != null)
            {
                string fileName = Guid.NewGuid().ToString();
-               var uploads = Path.Combine(wwwRootPath, @"images\product");
+               var uploads = Path.Combine(wwwRootPath, @"images\employee");
                var extension = Path.GetExtension(file.FileName);
 
                if (employee.ImageUrl != null)
@@ -206,7 +206,7 @@ namespace Fresh724.Web.Controllers;
                {
                    file.CopyTo(fileStreams);
                }
-               employee.ImageUrl = @"\images\product\" + fileName + extension;
+               employee.ImageUrl = @"\images\employee\" + fileName + extension;
 
            }
            _unitOfWork.Employees.Update(employee);
@@ -249,7 +249,7 @@ namespace Fresh724.Web.Controllers;
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images\product");
+                    var uploads = Path.Combine(wwwRootPath, @"images\employee");
                     var extension = Path.GetExtension(file.FileName);
 
                     if (employee.ImageUrl != null)
@@ -265,7 +265,7 @@ namespace Fresh724.Web.Controllers;
                     {
                         file.CopyTo(fileStreams);
                     }
-                    employee.ImageUrl = @"\images\product\" + fileName + extension;
+                    employee.ImageUrl = @"\images\employee\" + fileName + extension;
 
                 }
                 _unitOfWork.Employees.Remove(employee);

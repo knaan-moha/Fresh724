@@ -51,6 +51,7 @@
         <th>Status</th>
         <th>ImageUrl</th>
         <th>@Html.ActionLink("CreatedDateTime", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>Image</th>
         <th>Details</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -64,6 +65,7 @@
         <td>@Html.DisplayFor(modelItem => category.Status)</td>
         <td>@Html.DisplayFor(modelItem => category.ImageUrl)</td>
         <td>@Html.DisplayFor(modelItem => category.CreatedDateTime)</td>
+        <td><img src="@category.ImageUrl"width="100%" style="border-radius:5px; border:1px solid #bbb9b9" /></td>
         <td><a asp-action="Details" asp-route-id="@category.Id" class="view" title="Details" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a></td>
         <td><a asp-action="Edit" asp-route-id="@category.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
         <td><a asp-action="Delete" asp-route-id="@category.Id" onclick="return confirm('Are you sure want to delete this user : @category.Name ?')" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>

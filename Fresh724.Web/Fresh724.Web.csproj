@@ -56,7 +56,7 @@
       <Folder Include="Pages" />
       <Folder Include="wwwroot\images\category" />
       <Folder Include="wwwroot\images\company" />
-      <Folder Include="wwwroot\images\employees" />
+      <Folder Include="wwwroot\images\employee" />
       <Folder Include="wwwroot\images\product" />
     </ItemGroup>
 

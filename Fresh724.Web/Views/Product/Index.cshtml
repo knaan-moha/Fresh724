@@ -52,10 +52,10 @@
                         <th>Description</th>
                         <th>@Html.ActionLink("PurchasePrice", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                         <th>@Html.ActionLink("CreatedDateTime", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                        <th>ImageUrl</th>
                         <th>Status</th>
                         <th>@Html.ActionLink("CompanyName", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                         <th>CategoryName</th>
+                        <th>Image</th>
                         <th>Details</th>
                         <th>Edit </th>
                         <th>Delete</th>
@@ -70,10 +70,10 @@
                             <td>@Html.DisplayFor(modelItem => product.Description)</td>
                             <td>@Html.DisplayFor(modelItem => product.PurchasePrice)</td>
                             <td>@Html.DisplayFor(modelItem => product.CreatedDateTime)</td>
-                            <td>@Html.DisplayFor(modelItem => product.ImageUrl)</td>
                             <td>@Html.DisplayFor(modelItem => product.Status)</td>
                             <td>@Html.DisplayFor(modelItem => product.CreatedBy)</td>
                             <td>@Html.DisplayFor(modelItem => product.CategoryName)</td>
+                            <td><img src="@product.ImageUrl"width="100%" style="border-radius:5px; border:1px solid #bbb9b9" /></td>
                             <td><a asp-action="Details" asp-route-id="@product.Id" class="view" title="Details" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a></td>
                             <td><a asp-action="AddOrEdit" asp-route-id="@product.Id" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> </td>
                             <td><a asp-action="Delete" asp-route-id="@product.Id" onclick="return confirm('Are you sure want to delete this user : @product.Title ?')" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
